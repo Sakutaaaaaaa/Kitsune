@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hardware Compatibility - Kitsune Official Store</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="sakura-container"></div>
+
+    <header>
+        <a href="index.html" class="logo">
+            <img src="Media/logo.png" class="brand-logo" alt="Kitsune Logo"> Kitsuneキツネ
+        </a>
+        <nav>
+            <a href="catalog.html">All Products</a>
+            <a href="amd.html">AMD Graphics Cards</a>
+            <a href="nvidia.html">NVIDIA Graphics Cards</a>
+            <div class="dropdown">
+                <a href="#" class="dropbtn">Series Products ▾</a>
+                <div class="dropdown-content">
+                    <a href="kitsune-fox-series.html">🦊 Kitsune Fox</a>
+                    <a href="sakura-series.html">🌸 Sakura Blossom</a>
+                    <a href="kawaii-neko-series.html">🐾 Kawaii Neko</a>
+                </div>
+            </div>
+            <a href="compatibility.html" style="color: #d81b60;">Compatibility</a>
+            <a href="about-us.html">About Us</a>
+            <a href="contact-support.html">Contact Support</a> 
+        </nav>
+        <div class="nav-icons"><span>🔍</span><span>👤</span><span>🤍</span><span>🛒(0)</span></div>
+    </header>
+
+    <div class="page-header">
+        <h1>Verify Compatibility</h1>
+        <p>Ensure your selected Kitsune components work perfectly together before you buy.</p>
+    </div>
+
+    <main class="layout-compat">
+        <div class="builder-container">
+            <div class="selection-row">
+                <div class="selection-label">CPU Brand:</div>
+                <select id="cpu-brand">
+                    <option value="">-- Select CPU Type --</option>
+                    <option value="amd">AMD Ryzen</option>
+                    <option value="intel">Intel Core</option>
+                </select>
+            </div>
+
+            <div class="selection-row">
+                <div class="selection-label">Motherboard:</div>
+                <select id="motherboard">
+                    <option value="">-- Select Motherboard --</option>
+                    <option value="fox-amd" data-brand="amd" data-size="atx">🦊 Kitsune Fox X870 (AMD - ATX)</option>
+                    <option value="fox-intel" data-brand="intel" data-size="atx">🦊 Kitsune Fox Z790 (Intel - ATX)</option>
+                    <option value="sakura-amd" data-brand="amd" data-size="atx">🌸 Kitsune Sakura X870 (AMD - ATX)</option>
+                    <option value="sakura-intel" data-brand="intel" data-size="atx">🌸 Kitsune Sakura B760 (Intel - ATX)</option>
+                    <option value="neko-intel" data-brand="intel" data-size="micro">🐾 Kitsune Kawaii Neko B760M (Intel - M-ATX)</option>
+                    <option value="neko-amd" data-brand="amd" data-size="micro">🐾 Kitsune Kawaii Neko B650M (AMD - M-ATX)</option>
+                </select>
+            </div>
+
+            <div class="selection-row">
+                <div class="selection-label">PC Case:</div>
+                <select id="case">
+                    <option value="">-- Select Case --</option>
+                    <option value="fox-case" data-size="atx">🦊 Kitsune Fox Mid-Tower (Fits ATX/M-ATX)</option>
+                    <option value="sakura-case" data-size="atx">🌸 Kitsune Sakura ATX Chassis (Fits ATX/M-ATX)</option>
+                    <option value="neko-case" data-size="micro">🐾 Kitsune Kawaii Neko Micro-ATX Case (Fits M-ATX only)</option>
+                </select>
+            </div>
+
+            <button class="btn-check" onclick="checkCompatibility()">VERIFY BUILD</button>
+
+            <div id="status" class="status-box"></div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-col"><h4>Customer Support</h4><ul><li>FAQ</li><li>Shipping</li><li>Contact Us</li><li>Warranty</li></ul></div>
+        <div class="footer-col"><h4>About Kitsune</h4><ul><li>Our Story</li><li>Brand Assets</li><li>Affiliates</li></ul></div>
+        <div class="footer-col"><h4>Policies</h4><ul><li>Privacy Policy</li><li>Terms of Service</li></ul></div>
+    </footer>
+
+    <script>
+        // --- Sakura Animation ---
+        const container = document.querySelector('.sakura-container');
+        for (let i = 0; i < 25; i++) {
+            let petal = document.createElement('div');
+            petal.classList.add('sakura');
+            petal.style.left = Math.random() * 100 + 'vw';
+            let size = Math.random() * 10 + 10;
+            petal.style.width = size + 'px';
+            petal.style.height = size + 'px';
+            petal.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            petal.style.animationDelay = Math.random() * 5 + 's';
+            container.appendChild(petal);
+        }
+
+        // --- Compatibility Logic ---
+        function checkCompatibility() {
+            const cpuBrand = document.getElementById('cpu-brand').value;
+            const moboSelect = document.getElementById('motherboard');
+            const caseSelect = document.getElementById('case');
+            const statusBox = document.getElementById('status');
+
+            if (!cpuBrand || moboSelect.value === "" || caseSelect.value === "") {
+                statusBox.className = "status-box error";
+                statusBox.innerText = "Please select all components before verifying.";
+                return;
+            }
+
+            const selectedMobo = moboSelect.options[moboSelect.selectedIndex];
+            const selectedCase = caseSelect.options[caseSelect.selectedIndex];
+
+            const moboBrand = selectedMobo.getAttribute('data-brand');
+            const moboSize = selectedMobo.getAttribute('data-size');
+            const caseSize = selectedCase.getAttribute('data-size');
+
+            let errors = [];
+
+            // 1. Check CPU vs Motherboard
+            if (cpuBrand !== moboBrand) {
+                errors.push(`❌ Brand Mismatch: You selected an ${cpuBrand.toUpperCase()} CPU, but a motherboard that only supports ${moboBrand.toUpperCase()}.`);
+            }
+
+            // 2. Check Motherboard Size vs Case Size
+            if (caseSize === "micro" && moboSize === "atx") {
+                errors.push("❌ Size Conflict: The Kawaii Neko Case is too small for a full ATX Motherboard. Please choose a Micro-ATX motherboard or a larger case.");
+            }
+
+            // Display Results
+            if (errors.length > 0) {
+                statusBox.className = "status-box error";
+                statusBox.innerHTML = errors.join("<br>");
+            } else {
+                statusBox.className = "status-box success";
+                statusBox.innerHTML = "✅ High Compatibility! These Kitsune components are perfectly matched for your build.";
+            }
+        }
+    </script>
+</body>
+</html>

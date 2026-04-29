@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Support - Kitsune Official Store</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="sakura-container"></div>
+
+    <header>
+        <a href="index.html" class="logo">
+            <img src="Media/logo.png" class="brand-logo" alt="Kitsune Logo"> Kitsuneキツネ
+        </a>
+        <nav>
+            <a href="catalog.html">All Products</a>
+            <a href="amd.html">AMD Graphics Cards</a>
+            <a href="nvidia.html">NVIDIA Graphics Cards</a>
+            
+            <div class="dropdown">
+                <a href="#" class="dropbtn">Series Products ▾</a>
+                <div class="dropdown-content">
+                    <a href="kitsune-fox-series.html">🦊 Kitsune Fox</a>
+                    <a href="sakura-series.html">🌸 Sakura Blossom</a>
+                    <a href="kawaii-neko-series.html">🐾 Kawaii Neko</a>
+                </div>
+            </div>
+
+            <a href="compatibility.html">Compatibility</a> 
+            <a href="about-us.html">About Us</a>
+            <a href="contact-support.html" style="color: #d81b60;">Contact Support</a>
+        </nav>
+
+        <div class="nav-icons">
+            <span>🔍</span>
+            <span>👤</span>
+            <span>🤍</span>
+            <span>🛒(0)</span>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <h1>Contact & Support</h1>
+        <p>We're here to help you with your aesthetic build.</p>
+    </div>
+
+    <main class="layout-contact">
+        <div class="form-section">
+            <h2>Send an Inquiry</h2>
+            <form>
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input type="text" placeholder="e.g., Sakura Haruno">
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" placeholder="email@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Subject</label>
+                    <select>
+                        <option>Technical Support</option>
+                        <option>Order Inquiry</option>
+                        <option>Warranty Claim</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea rows="5" placeholder="How can the Kitsune team assist you?"></textarea>
+                </div>
+                <button type="button" class="btn-submit">SEND A MESSAGE</button>
+            </form>
+        </div>
+
+        <div class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3>Do you ship internationally?</h3>
+                <p>Yes! Kitsune offers worldwide shipping with protective packaging to ensure your components arrive safely.</p>
+            </div>
+            <div class="faq-item">
+                <h3>What is the warranty on GPUs?</h3>
+                <p>All Kitsune series GPUs come with a standard 3-year limited warranty covering manufacturing defects.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Are the desk mats water-resistant?</h3>
+                <p>Our desk mats feature a nano-textured surface that is spill-resistant and easy to clean.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="col-3">
+        <div class="footer-col"><h4>Support</h4><ul><li>Shipping Policy</li><li>Track Order</li></ul></div>
+        <div class="footer-col"><h4>Contact</h4><ul><li>support@kitsunetech.ph</li><li>Customer Hotline</li><li>(02)8930-2490</li></ul></div>
+        <div class="footer-col"><h4>Socials</h4><ul><li>Instagram</li><li>Facebook</li></ul></div>
+    </footer>
+
+    <script>
+        // --- Sakura Petals Animation ---
+        const container = document.querySelector('.sakura-container');
+        for (let i = 0; i < 25; i++) {
+            let petal = document.createElement('div');
+            petal.classList.add('sakura');
+            petal.style.left = Math.random() * 100 + 'vw';
+            let size = Math.random() * 10 + 10;
+            petal.style.width = size + 'px';
+            petal.style.height = size + 'px';
+            petal.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            petal.style.animationDelay = Math.random() * 5 + 's';
+            container.appendChild(petal);
+        }
+    </script>
+</body>
+</html>
