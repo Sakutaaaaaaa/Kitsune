@@ -33,10 +33,19 @@
             <a href="contact-support.html">Contact Support</a> 
         </nav>
         <div class="nav-icons">
-            <span>🔍</span>
-            <span>👤</span>
-            <span>🤍</span>
-            <span>🛒(0)</span>
+            <!-- Functional Search Bar -->
+             <div class="search-container" style="display: flex; align-items: center;">
+                <input type="text" id="search-bar" placeholder="Search Kitsune..." 
+                style="width: 0; padding: 0; border: none; border-bottom: 2px solid var(--pastel-pink); 
+                transition: width 0.3s ease; outline: none; background: transparent;">
+                <span style="cursor: pointer;" onclick="toggleSearch()" title="Search">🔍</span>
+            </div>
+            <!-- Account Link -->
+            <a href="account.html" style="text-decoration: none; color: inherit;"><span title="Account">👤</span></a>
+            <!-- Wishlist Link -->
+            <a href="wishlist.html" style="text-decoration: none; color: inherit;"><span title="Wishlist">🤍</span></a>
+            <!-- Functional Cart Toggle -->
+            <span style="cursor: pointer;" onclick="toggleCart()" title="View Cart">🛒(<span id="cart-count-nav">0</span>)</span>
         </div>
     </header>
 
@@ -123,6 +132,28 @@
 
     </main>
 
+    <div id="cartSidebar" style="position: fixed; top: 0; right: -350px; width: 300px; height: 100%; 
+         background: white; box-shadow: -5px 0 15px rgba(0,0,0,0.1); z-index: 1001; 
+         transition: right 0.3s ease; padding: 25px; display: flex; flex-direction: column; box-sizing: border-box;">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; 
+                    border-bottom: 2px solid var(--pastel-pink); padding-bottom: 15px;">
+            <h3 style="margin: 0; color: #d81b60;">Your Pack</h3>
+            <span onclick="toggleCart()" style="font-size: 24px; cursor: pointer;">&times;</span>
+        </div>
+
+        <div id="cartItems" style="flex-grow: 1; padding: 20px 0; color: #666; text-align: center;">
+            <p>The pack is empty. Time to hunt for parts!</p>
+        </div>
+
+        <div style="border-top: 2px solid #eee; padding-top: 15px;">
+            <p style="display: flex; justify-content: space-between; font-weight: bold;">
+                Total: <span>$0.00</span>
+            </p>
+            <button style="width: 100%; padding: 15px; background: var(--btn-pink); border: none; border-radius: 30px; color: white; font-weight: bold; cursor: pointer;">CHECKOUT</button>
+        </div>
+    </div>
+
     <footer>
         <div class="footer-col">
             <h4>Customer Support</h4>
@@ -195,6 +226,237 @@
 
             grid.innerHTML = '';
             cards.forEach(card => grid.appendChild(card));
+        }
+
+                // --- UI Functionality ---
+        function toggleSearch() {
+            const input = document.getElementById('search-bar');
+            if (input.style.width === '0px' || input.style.width === '') {
+                input.style.width = '180px';
+                input.style.padding = '5px 10px';
+                input.focus();
+            } else {
+                input.style.width = '0px';
+                input.style.padding = '0';
+            }
+        }
+
+        function toggleCart() {
+            const cart = document.getElementById('cartSidebar');
+            cart.style.right = (cart.style.right === '0px') ? '-350px' : '0px';
+        }
+
+        // --- Auto-Inject Wishlist Buttons & Logic ---
+        window.addEventListener('DOMContentLoaded', () => {
+            // 1. Inject the buttons into every product card automatically
+            document.querySelectorAll('.product-card').forEach(card => {
+                // Prevent duplicate buttons if the script runs twice
+                if(card.querySelector('.btn-wishlist-toggle')) return;
+                
+                // Grab the specific product's details directly from your existing HTML
+                const title = card.querySelector('.product-title').innerText;
+                const price = card.querySelector('.product-price').innerText;
+                const img = card.querySelector('.product-img img').getAttribute('src');
+                
+                // Create the heart button
+                const btn = document.createElement('button');
+                btn.className = 'btn-wishlist-toggle';
+                btn.innerHTML = '🤍';
+                btn.setAttribute('data-name', title);
+                btn.setAttribute('data-price', price);
+                btn.setAttribute('data-img', img);
+                
+                // Add the click functionality
+                btn.addEventListener('click', function() {
+                    toggleWishlist(this);
+                });
+                
+                // Add the button to the top of the product card
+                card.prepend(btn);
+            });
+            
+            // 2. Check browser memory to see which hearts should already be red
+            let wishlist = JSON.parse(localStorage.getItem('kitsune_wishlist')) || [];
+            document.querySelectorAll('.btn-wishlist-toggle').forEach(button => {
+                const name = button.getAttribute('data-name');
+                if (wishlist.some(item => item.name === name)) {
+                    button.innerText = '❤️';
+                    button.classList.add('active');
+                }
+            });
+        });
+        
+        // --- Wishlist Save/Remove Logic ---
+        function toggleWishlist(button) {
+            const name = button.getAttribute('data-name');
+            const price = button.getAttribute('data-price');
+            const img = button.getAttribute('data-img');
+            
+            // Get current wishlist from memory
+            let wishlist = JSON.parse(localStorage.getItem('kitsune_wishlist')) || [];
+            const existingIndex = wishlist.findIndex(item => item.name === name);
+            
+            if (existingIndex > -1) {
+                // Item exists: Remove it
+                wishlist.splice(existingIndex, 1);
+                button.innerText = '🤍';
+                button.classList.remove('active');
+            } else {
+                // Item doesn't exist: Add it
+                wishlist.push({ name, price, img });
+                button.innerText = '❤️';
+                button.classList.add('active');
+            }
+            
+            // Save updated list back to memory
+            localStorage.setItem('kitsune_wishlist', JSON.stringify(wishlist));
+        }
+        
+        // --- Live Search Filter ---
+        window.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('search-bar');
+            
+            // Make sure the search bar actually exists on this page before running
+            if (searchInput) {
+                searchInput.addEventListener('input', (event) => {
+                    // Get what the user typed and make it lowercase
+                    const searchTerm = event.target.value.toLowerCase();
+                    // Grab every single product card on the screen
+                    const productCards = document.querySelectorAll('.product-card');
+                    
+                    productCards.forEach(card => {
+                        // Get the title of this specific card
+                        const titleElement = card.querySelector('.product-title');
+                        
+                        if (titleElement) {
+                            const title = titleElement.innerText.toLowerCase();
+                            
+                            // If the title includes the typed words, show the card. If not, hide it!
+                            if (title.includes(searchTerm)) {
+                                card.style.display = 'flex'; // Your styles.css uses flex for product cards
+                                } else {
+                                    card.style.display = 'none';
+                                }
+                            }
+                        });
+                    });
+                }
+            });
+
+                    window.addEventListener('DOMContentLoaded', () => {
+            // 1. Attach click events to all "ADD TO CART" buttons automatically
+            document.querySelectorAll('.btn-add').forEach(button => {
+                // Prevent adding duplicate listeners if the script runs twice
+                if(button.hasAttribute('data-cart-active')) return;
+                button.setAttribute('data-cart-active', 'true');
+                
+                button.addEventListener('click', function() {
+                    // Find the parent product card
+                    const card = this.closest('.product-card');
+                    
+                    // Extract product details directly from the HTML
+                    const name = card.querySelector('.product-title').innerText;
+                    const priceText = card.querySelector('.product-price').innerText;
+                    // Remove the $ and commas to turn it into a real math number
+                    const price = parseFloat(priceText.replace(/[$,]/g, '')); 
+                    const img = card.querySelector('.product-img img').getAttribute('src');
+                    
+                    addToCart(name, price, img);
+                });
+            });
+            
+            // 2. Load the cart UI immediately when the page opens
+            updateCartUI();
+        });
+        
+        function addToCart(name, price, img) {
+            let cart = JSON.parse(localStorage.getItem('kitsune_cart')) || [];
+            
+            // Check if the item is already in the cart
+            let existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                existingItem.quantity += 1; // Increase quantity
+            } else {
+                cart.push({ name, price, img, quantity: 1 }); // Add new item
+            }
+
+            // Save to browser memory
+            localStorage.setItem('kitsune_cart', JSON.stringify(cart));
+            
+            // Refresh the visuals
+            updateCartUI();
+            
+            // Auto-open the cart sidebar to show the user it worked!
+            const cartSidebar = document.getElementById('cartSidebar');
+            if (cartSidebar) {
+                cartSidebar.style.right = '0px';
+            }
+        }
+        
+        function updateCartUI() {
+            let cart = JSON.parse(localStorage.getItem('kitsune_cart')) || [];
+            const cartItemsContainer = document.getElementById('cartItems');
+            const cartCountNav = document.getElementById('cart-count-nav');
+            
+            // Find the total price span dynamically based on your HTML structure
+            const totalSpan = document.querySelector('#cartSidebar div[style*="border-top"] span');
+            
+            let totalItems = 0;
+            let totalPrice = 0;
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p style="margin-top: 50px;">The pack is empty. Time to hunt for parts!</p>';
+                cartItemsContainer.style.overflowY = 'visible';
+            } else {
+                cartItemsContainer.innerHTML = ''; // Clear empty message
+                cartItemsContainer.style.overflowY = 'auto'; // Add scrolling if they add too many items
+                cartItemsContainer.style.overflowX = 'hidden';
+                
+                cart.forEach((item, index) => {
+                    totalItems += item.quantity;
+                    totalPrice += (item.price * item.quantity);
+                    
+                    // Build the HTML for each cart item inside the sidebar
+                    cartItemsContainer.innerHTML += `
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px; text-align: left; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+                        <img src="${item.img}" style="width: 60px; height: 60px; object-fit: contain; background: #f5f5f5; border-radius: 8px; flex-shrink: 0;">
+                        <div style="flex-grow: 1;">
+                            <div style="font-size: 12px; font-weight: bold; color: var(--dark-text); line-height: 1.3; margin-bottom: 5px;">${item.name}</div>
+                            <div style="color: #d81b60; font-weight: bold; font-size: 14px;">$${item.price.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</div>
+                            </div>
+                    
+                            <!-- Plus/Minus Quantity Buttons -->
+                            <div style="display: flex; flex-direction: column; align-items: center; flex-shrink: 0;">
+                                <div style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 15px; overflow: hidden;">
+                                    <button onclick="changeCartQty(${index}, -1)" style="border: none; background: #f9f9f9; cursor: pointer; padding: 4px 10px; font-weight: bold; color: #666; transition: background 0.2s;">-</button>
+                                    <span style="font-size: 13px; font-weight: bold; padding: 0 5px; width: 15px; text-align: center;">${item.quantity}</span>
+                                    <button onclick="changeCartQty(${index}, 1)" style="border: none; background: #f9f9f9; cursor: pointer; padding: 4px 10px; font-weight: bold; color: #666; transition: background 0.2s;">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            
+            // Update the numbers on the screen
+            if (cartCountNav) cartCountNav.innerText = totalItems;
+            if (totalSpan) totalSpan.innerText = '$' + totalPrice.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        }
+        
+        function changeCartQty(index, amount) {
+            let cart = JSON.parse(localStorage.getItem('kitsune_cart')) || [];
+            cart[index].quantity += amount;
+            
+            // Remove the item completely if quantity drops to 0
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            
+            // Save and refresh
+            localStorage.setItem('kitsune_cart', JSON.stringify(cart));
+            updateCartUI();
         }
     </script>
 </body>

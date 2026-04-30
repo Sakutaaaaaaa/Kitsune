@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - Kitsune Official Store</title>
+    <title>My Account - Kitsune Official Store</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
+    <!-- Sakura Animation Container -->
     <div class="sakura-container"></div>
 
+    <!-- Header & Navigation -->
     <header>
         <a href="index.html" class="logo">
             <img src="Media/logo.png" class="brand-logo" alt="Kitsune Logo"> Kitsuneキツネ
@@ -29,10 +31,11 @@
             </div>
 
             <a href="compatibility.html">Compatibility</a> 
-            <a href="about-us.html" style="color: #d81b60;">About Us</a>
+            <a href="about-us.html">About Us</a>
             <a href="contact-support.html">Contact Support</a>
         </nav>
 
+        <!-- Functional Icons -->
         <div class="nav-icons">
             <div class="search-container" style="display: flex; align-items: center;">
                 <input type="text" id="search-bar" placeholder="Search Kitsune..." 
@@ -44,29 +47,84 @@
             <a href="wishlist.html" style="text-decoration: none; color: inherit;"><span title="Wishlist">🤍</span></a>
             <span onclick="toggleCart()" title="View Cart">🛒(<span id="cart-count-nav">0</span>)</span>
         </div>
+        </div>
     </header>
 
-    <div class="page-header about-header">
-        <h1>Our Story</h1>
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>My Account</h1>
+        <p>Welcome back to Kitsune Store, Sakuta.</p>
     </div>
 
-    <main class="layout-about">
-        <div class="content-section">
-            <h2>Kitsune</h2>
-            <p>Founded by Matt Kusain currently taking BSIT-MWA in National University Manila, Kitsune was born from a simple dream: to create PC hardware that feels as alive as the spirits of legend. Our name, Kitsune (キツネ), represents the intelligence, power, and shapeshifting beauty we build into every component.</p>
+    <!-- Main Account Layout -->
+    <main class="account-container">
+        
+        <!-- Sidebar Navigation -->
+        <div class="account-sidebar">
+            <a href="#" class="active">👤 Profile Overview</a>
+            <a href="#">📦 Order History</a>
+            <a href="#">🤍 My Wishlist</a>
+            <a href="#">⚙️ Account Settings</a>
+            <a href="#" style="color: var(--error-red); margin-top: 20px;">🚪 Log Out</a>
         </div>
 
-        <div class="content-section">
-            <h2>Design Philosophy</h2>
-            <p>We believe your PC is an extension of your soul. Our design philosophy centers on "Functional Aesthetic." We don't just add a coat of paint; we engineer our Sakura, Kawaii Neko, and Fox series from the ground up to ensure that world-class cooling and performance are never sacrificed for beauty.</p>
-        </div>
+        <!-- Main Content Area -->
+        <div class="account-content">
+            <h2>Profile Overview</h2>
+            
+            <div class="profile-info">
+                <div class="info-group">
+                    <label>Full Name</label>
+                    <p>Sakuta Azusagawa</p>
+                </div>
+                <div class="info-group">
+                    <label>Email Address</label>
+                    <p>sakuta.a@gmail.com</p>
+                </div>
+                <div class="info-group">
+                    <label>Phone Number</label>
+                    <p>+63 912 345 6789</p>
+                </div>
+                <div class="info-group">
+                    <label>Primary Shipping Address</label>
+                    <p>Metro Manila, Philippines</p>
+                </div>
+            </div>
 
-        <div class="content-section">
-            <h2>Our Mission</h2>
-            <p>Our mission is to empower gamers, creators, and enthusiasts to build rigs that break the mold. We strive to provide a complete ecosystem of hardware that reflects the vibrant, magical energy of anime culture while delivering the raw power needed to conquer any digital realm.</p>
+            <button style="padding: 10px 20px; background-color: var(--btn-blue); color: white; border: none; border-radius: 20px; font-weight: bold; cursor: pointer; margin-bottom: 40px;">Edit Profile</button>
+
+            <h2>Recent Orders</h2>
+            
+            <!-- Sample Order 1 -->
+            <div class="order-card">
+                <div class="order-details">
+                    <h4>Order #KSN-8902</h4>
+                    <p>Placed on April 15, 2026</p>
+                    <p><strong>Total:</strong> $149.00</p>
+                </div>
+                <div style="text-align: right;">
+                    <div class="order-status">Delivered</div>
+                    <p style="margin-top: 10px; font-size: 14px; font-weight: bold; color: #d81b60; cursor: pointer;">View Receipt</p>
+                </div>
+            </div>
+
+            <!-- Sample Order 2 -->
+            <div class="order-card" style="border-left-color: var(--kitsune-orange);">
+                <div class="order-details">
+                    <h4>Order #KSN-9014</h4>
+                    <p>Placed on April 28, 2026</p>
+                    <p><strong>Total:</strong> $1,199.00</p>
+                </div>
+                <div style="text-align: right;">
+                    <div class="order-status" style="background-color: #fff3e0; color: #ff9800;">Processing</div>
+                    <p style="margin-top: 10px; font-size: 14px; font-weight: bold; color: #d81b60; cursor: pointer;">Track Order</p>
+                </div>
+            </div>
+
         </div>
     </main>
-    
+
+    <!-- Cart Sidebar -->
     <div id="cartSidebar" style="position: fixed; top: 0; right: -350px; width: 300px; height: 100%; 
          background: white; box-shadow: -5px 0 15px rgba(0,0,0,0.1); z-index: 1001; 
          transition: right 0.3s ease; padding: 25px; display: flex; flex-direction: column; box-sizing: border-box;">
@@ -89,12 +147,14 @@
         </div>
     </div>
 
+    <!-- Footer -->
     <footer class="col-3">
         <div class="footer-col"><h4>Support</h4><ul><li>FAQ</li><li>Shipping</li><li>Warranty</li></ul></div>
         <div class="footer-col"><h4>About</h4><ul><li>Our Story</li><li>Affiliates</li></ul></div>
         <div class="footer-col"><h4>Policies</h4><ul><li>Privacy Policy</li><li>Terms of Service</li></ul></div>
     </footer>
 
+    <!-- Scripts -->
     <script>
         // --- Sakura Petals Animation ---
         const container = document.querySelector('.sakura-container');
@@ -127,8 +187,8 @@
             const cart = document.getElementById('cartSidebar');
             cart.style.right = (cart.style.right === '0px') ? '-350px' : '0px';
         }
-        
-        window.addEventListener('DOMContentLoaded', () => {
+
+                window.addEventListener('DOMContentLoaded', () => {
             // 1. Attach click events to all "ADD TO CART" buttons automatically
             document.querySelectorAll('.btn-add').forEach(button => {
                 // Prevent adding duplicate listeners if the script runs twice

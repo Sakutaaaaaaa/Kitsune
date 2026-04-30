@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - Kitsune Official Store</title>
+    <title>My Wishlist - Kitsune Official Store</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
+    <!-- Sakura Animation Container -->
     <div class="sakura-container"></div>
 
+    <!-- Header & Navigation -->
     <header>
         <a href="index.html" class="logo">
             <img src="Media/logo.png" class="brand-logo" alt="Kitsune Logo"> Kitsuneキツネ
@@ -29,10 +31,11 @@
             </div>
 
             <a href="compatibility.html">Compatibility</a> 
-            <a href="about-us.html" style="color: #d81b60;">About Us</a>
+            <a href="about-us.html">About Us</a>
             <a href="contact-support.html">Contact Support</a>
         </nav>
 
+        <!-- Functional Icons -->
         <div class="nav-icons">
             <div class="search-container" style="display: flex; align-items: center;">
                 <input type="text" id="search-bar" placeholder="Search Kitsune..." 
@@ -46,27 +49,26 @@
         </div>
     </header>
 
-    <div class="page-header about-header">
-        <h1>Our Story</h1>
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>My Wishlist 🤍</h1>
+        <p>Your saved components, waiting to become part of your next build.</p>
     </div>
 
-    <main class="layout-about">
-        <div class="content-section">
-            <h2>Kitsune</h2>
-            <p>Founded by Matt Kusain currently taking BSIT-MWA in National University Manila, Kitsune was born from a simple dream: to create PC hardware that feels as alive as the spirits of legend. Our name, Kitsune (キツネ), represents the intelligence, power, and shapeshifting beauty we build into every component.</p>
+    <main>
+        <div class="wishlist-header">
+            <h2 style="color: #d81b60; margin: 0;">Saved Items (<span id="wishlist-count">0</span>)</h2>
+            <button style="padding: 8px 15px; background: none; border: 2px solid var(--pastel-pink); border-radius: 20px; font-weight: bold; color: var(--dark-text); cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.borderColor='#d81b60'; this.style.color='#d81b60';" onmouseout="this.style.borderColor='var(--pastel-pink)'; this.style.color='var(--dark-text)';">Add All to Cart</button>
+        </div>
+        
+        <!-- Empty dynamic grid where the JavaScript will load the items -->
+        <div class="product-grid wishlist-grid" id="dynamic-wishlist-grid">
+            <!-- Items load here automatically -->
         </div>
 
-        <div class="content-section">
-            <h2>Design Philosophy</h2>
-            <p>We believe your PC is an extension of your soul. Our design philosophy centers on "Functional Aesthetic." We don't just add a coat of paint; we engineer our Sakura, Kawaii Neko, and Fox series from the ground up to ensure that world-class cooling and performance are never sacrificed for beauty.</p>
-        </div>
-
-        <div class="content-section">
-            <h2>Our Mission</h2>
-            <p>Our mission is to empower gamers, creators, and enthusiasts to build rigs that break the mold. We strive to provide a complete ecosystem of hardware that reflects the vibrant, magical energy of anime culture while delivering the raw power needed to conquer any digital realm.</p>
-        </div>
     </main>
-    
+
+    <!-- Cart Sidebar -->
     <div id="cartSidebar" style="position: fixed; top: 0; right: -350px; width: 300px; height: 100%; 
          background: white; box-shadow: -5px 0 15px rgba(0,0,0,0.1); z-index: 1001; 
          transition: right 0.3s ease; padding: 25px; display: flex; flex-direction: column; box-sizing: border-box;">
@@ -89,12 +91,14 @@
         </div>
     </div>
 
+    <!-- Footer -->
     <footer class="col-3">
         <div class="footer-col"><h4>Support</h4><ul><li>FAQ</li><li>Shipping</li><li>Warranty</li></ul></div>
         <div class="footer-col"><h4>About</h4><ul><li>Our Story</li><li>Affiliates</li></ul></div>
         <div class="footer-col"><h4>Policies</h4><ul><li>Privacy Policy</li><li>Terms of Service</li></ul></div>
     </footer>
 
+    <!-- Scripts -->
     <script>
         // --- Sakura Petals Animation ---
         const container = document.querySelector('.sakura-container');
@@ -127,8 +131,55 @@
             const cart = document.getElementById('cartSidebar');
             cart.style.right = (cart.style.right === '0px') ? '-350px' : '0px';
         }
-        
-        window.addEventListener('DOMContentLoaded', () => {
+
+        // --- Dynamic Wishlist Loader ---
+        function loadWishlistPage() {
+            const grid = document.getElementById('dynamic-wishlist-grid');
+            const countSpan = document.getElementById('wishlist-count');
+            
+            // Get the saved items from the browser
+            let wishlist = JSON.parse(localStorage.getItem('kitsune_wishlist')) || [];
+            
+            // Update the count number
+            countSpan.innerText = wishlist.length;
+
+            // If empty, show a message
+            if (wishlist.length === 0) {
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #666; font-size: 18px; margin-top: 50px;">Your wishlist is empty. Time to hunt for parts!</p>';
+                return;
+            }
+
+            // Clear the grid and build the cards
+            grid.innerHTML = ''; 
+            wishlist.forEach((item, index) => {
+                // If it's a Kitsune Fox item, give it the orange button styling
+                let btnClass = item.name.includes('FOX') ? 'btn-add btn-fox' : 'btn-add';
+                let cardStyle = item.name.includes('FOX') ? 'style="border-color: var(--kitsune-orange);"' : '';
+
+                grid.innerHTML += `
+                    <div class="product-card" ${cardStyle}>
+                        <button class="btn-remove-wishlist" onclick="removeFromWishlistPage(${index})" title="Remove from wishlist">✕</button>
+                        <div class="product-img"><img src="${item.img}" alt="${item.name}"></div>
+                        <div class="product-title">${item.name}</div>
+                        <div class="product-price">${item.price}</div>
+                        <button class="${btnClass}">ADD TO CART</button>
+                    </div>
+                `;
+            });
+        }
+
+        // --- Remove Item Logic ---
+        function removeFromWishlistPage(index) {
+            let wishlist = JSON.parse(localStorage.getItem('kitsune_wishlist')) || [];
+            wishlist.splice(index, 1); // Remove the specific item from the array
+            localStorage.setItem('kitsune_wishlist', JSON.stringify(wishlist)); // Save the updated array
+            loadWishlistPage(); // Reload the page automatically to show the change
+        }
+
+        // Load items when the page opens
+        window.addEventListener('DOMContentLoaded', loadWishlistPage);
+
+                window.addEventListener('DOMContentLoaded', () => {
             // 1. Attach click events to all "ADD TO CART" buttons automatically
             document.querySelectorAll('.btn-add').forEach(button => {
                 // Prevent adding duplicate listeners if the script runs twice
