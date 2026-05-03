@@ -8,10 +8,8 @@
 </head>
 <body>
 
-    <!-- Sakura Animation Container -->
     <div class="sakura-container"></div>
 
-    <!-- Header & Navigation -->
     <header>
         <a href="index.html" class="logo">
             <img src="Media/logo.png" class="brand-logo" alt="Kitsune Logo"> Kitsuneキツネ
@@ -35,7 +33,6 @@
             <a href="contact-support.html">Contact Support</a>
         </nav>
 
-        <!-- Functional Icons -->
         <div class="nav-icons">
             <div class="search-container" style="display: flex; align-items: center;">
                 <input type="text" id="search-bar" placeholder="Search Kitsune..." 
@@ -49,7 +46,6 @@
         </div>
     </header>
 
-    <!-- Page Header -->
     <div class="page-header">
         <h1>My Wishlist 🤍</h1>
         <p>Your saved components, waiting to become part of your next build.</p>
@@ -61,14 +57,13 @@
             <button style="padding: 8px 15px; background: none; border: 2px solid var(--pastel-pink); border-radius: 20px; font-weight: bold; color: var(--dark-text); cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.borderColor='#d81b60'; this.style.color='#d81b60';" onmouseout="this.style.borderColor='var(--pastel-pink)'; this.style.color='var(--dark-text)';">Add All to Cart</button>
         </div>
         
-        <!-- Empty dynamic grid where the JavaScript will load the items -->
         <div class="product-grid wishlist-grid" id="dynamic-wishlist-grid">
-            <!-- Items load here automatically -->
+
         </div>
 
     </main>
 
-    <!-- Cart Sidebar -->
+
     <div id="cartSidebar" style="position: fixed; top: 0; right: -350px; width: 300px; height: 100%; 
          background: white; box-shadow: -5px 0 15px rgba(0,0,0,0.1); z-index: 1001; 
          transition: right 0.3s ease; padding: 25px; display: flex; flex-direction: column; box-sizing: border-box;">
@@ -91,16 +86,16 @@
         </div>
     </div>
 
-    <!-- Footer -->
+
     <footer class="col-3">
         <div class="footer-col"><h4>Support</h4><ul><li>FAQ</li><li>Shipping</li><li>Warranty</li></ul></div>
         <div class="footer-col"><h4>About</h4><ul><li>Our Story</li><li>Affiliates</li></ul></div>
         <div class="footer-col"><h4>Policies</h4><ul><li>Privacy Policy</li><li>Terms of Service</li></ul></div>
     </footer>
 
-    <!-- Scripts -->
+
     <script>
-        // --- Sakura Petals Animation ---
+
         const container = document.querySelector('.sakura-container');
         for (let i = 0; i < 25; i++) {
             let petal = document.createElement('div');
@@ -114,7 +109,7 @@
             container.appendChild(petal);
         }
 
-        // --- UI Functionality ---
+
         function toggleSearch() {
             const input = document.getElementById('search-bar');
             if (input.style.width === '0px' || input.style.width === '') {
@@ -132,27 +127,27 @@
             cart.style.right = (cart.style.right === '0px') ? '-350px' : '0px';
         }
 
-        // --- Dynamic Wishlist Loader ---
+  
         function loadWishlistPage() {
             const grid = document.getElementById('dynamic-wishlist-grid');
             const countSpan = document.getElementById('wishlist-count');
             
-            // Get the saved items from the browser
+
             let wishlist = JSON.parse(localStorage.getItem('kitsune_wishlist')) || [];
             
-            // Update the count number
+   
             countSpan.innerText = wishlist.length;
 
-            // If empty, show a message
+
             if (wishlist.length === 0) {
                 grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #666; font-size: 18px; margin-top: 50px;">Your wishlist is empty. Time to hunt for parts!</p>';
                 return;
             }
 
-            // Clear the grid and build the cards
+
             grid.innerHTML = ''; 
             wishlist.forEach((item, index) => {
-                // If it's a Kitsune Fox item, give it the orange button styling
+
                 let btnClass = item.name.includes('FOX') ? 'btn-add btn-fox' : 'btn-add';
                 let cardStyle = item.name.includes('FOX') ? 'style="border-color: var(--kitsune-orange);"' : '';
 
@@ -168,32 +163,30 @@
             });
         }
 
-        // --- Remove Item Logic ---
         function removeFromWishlistPage(index) {
             let wishlist = JSON.parse(localStorage.getItem('kitsune_wishlist')) || [];
-            wishlist.splice(index, 1); // Remove the specific item from the array
-            localStorage.setItem('kitsune_wishlist', JSON.stringify(wishlist)); // Save the updated array
-            loadWishlistPage(); // Reload the page automatically to show the change
+            wishlist.splice(index, 1); 
+            localStorage.setItem('kitsune_wishlist', JSON.stringify(wishlist)); 
+            loadWishlistPage(); 
         }
 
-        // Load items when the page opens
         window.addEventListener('DOMContentLoaded', loadWishlistPage);
 
                 window.addEventListener('DOMContentLoaded', () => {
-            // 1. Attach click events to all "ADD TO CART" buttons automatically
+  
             document.querySelectorAll('.btn-add').forEach(button => {
-                // Prevent adding duplicate listeners if the script runs twice
+     
                 if(button.hasAttribute('data-cart-active')) return;
                 button.setAttribute('data-cart-active', 'true');
                 
                 button.addEventListener('click', function() {
-                    // Find the parent product card
+      
                     const card = this.closest('.product-card');
                     
-                    // Extract product details directly from the HTML
+           
                     const name = card.querySelector('.product-title').innerText;
                     const priceText = card.querySelector('.product-price').innerText;
-                    // Remove the $ and commas to turn it into a real math number
+             
                     const price = parseFloat(priceText.replace(/[$,]/g, '')); 
                     const img = card.querySelector('.product-img img').getAttribute('src');
                     
@@ -201,29 +194,29 @@
                 });
             });
             
-            // 2. Load the cart UI immediately when the page opens
+       
             updateCartUI();
         });
         
         function addToCart(name, price, img) {
             let cart = JSON.parse(localStorage.getItem('kitsune_cart')) || [];
             
-            // Check if the item is already in the cart
+  
             let existingItem = cart.find(item => item.name === name);
             
             if (existingItem) {
-                existingItem.quantity += 1; // Increase quantity
+                existingItem.quantity += 1; 
             } else {
-                cart.push({ name, price, img, quantity: 1 }); // Add new item
+                cart.push({ name, price, img, quantity: 1 }); 
             }
 
-            // Save to browser memory
+  
             localStorage.setItem('kitsune_cart', JSON.stringify(cart));
             
-            // Refresh the visuals
+       
             updateCartUI();
             
-            // Auto-open the cart sidebar to show the user it worked!
+       
             const cartSidebar = document.getElementById('cartSidebar');
             if (cartSidebar) {
                 cartSidebar.style.right = '0px';
@@ -235,7 +228,7 @@
             const cartItemsContainer = document.getElementById('cartItems');
             const cartCountNav = document.getElementById('cart-count-nav');
             
-            // Find the total price span dynamically based on your HTML structure
+        
             const totalSpan = document.querySelector('#cartSidebar div[style*="border-top"] span');
             
             let totalItems = 0;
@@ -245,15 +238,15 @@
                 cartItemsContainer.innerHTML = '<p style="margin-top: 50px;">The pack is empty. Time to hunt for parts!</p>';
                 cartItemsContainer.style.overflowY = 'visible';
             } else {
-                cartItemsContainer.innerHTML = ''; // Clear empty message
-                cartItemsContainer.style.overflowY = 'auto'; // Add scrolling if they add too many items
+                cartItemsContainer.innerHTML = ''; 
+                cartItemsContainer.style.overflowY = 'auto'; 
                 cartItemsContainer.style.overflowX = 'hidden';
                 
                 cart.forEach((item, index) => {
                     totalItems += item.quantity;
                     totalPrice += (item.price * item.quantity);
                     
-                    // Build the HTML for each cart item inside the sidebar
+        
                     cartItemsContainer.innerHTML += `
                     <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px; text-align: left; border-bottom: 1px solid #eee; padding-bottom: 15px;">
                         <img src="${item.img}" style="width: 60px; height: 60px; object-fit: contain; background: #f5f5f5; border-radius: 8px; flex-shrink: 0;">
@@ -276,7 +269,6 @@
                 });
             }
             
-            // Update the numbers on the screen
             if (cartCountNav) cartCountNav.innerText = totalItems;
             if (totalSpan) totalSpan.innerText = '$' + totalPrice.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
         }
@@ -285,12 +277,11 @@
             let cart = JSON.parse(localStorage.getItem('kitsune_cart')) || [];
             cart[index].quantity += amount;
             
-            // Remove the item completely if quantity drops to 0
             if (cart[index].quantity <= 0) {
                 cart.splice(index, 1);
             }
             
-            // Save and refresh
+
             localStorage.setItem('kitsune_cart', JSON.stringify(cart));
             updateCartUI();
         }

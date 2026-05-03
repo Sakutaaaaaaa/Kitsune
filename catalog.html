@@ -33,18 +33,14 @@
             <a href="contact-support.html">Contact Support</a> 
         </nav>
         <div class="nav-icons">
-            <!-- Functional Search Bar -->
              <div class="search-container" style="display: flex; align-items: center;">
                 <input type="text" id="search-bar" placeholder="Search Kitsune..." 
                 style="width: 0; padding: 0; border: none; border-bottom: 2px solid var(--pastel-pink); 
                 transition: width 0.3s ease; outline: none; background: transparent;">
                 <span style="cursor: pointer;" onclick="toggleSearch()" title="Search">🔍</span>
             </div>
-            <!-- Account Link -->
             <a href="account.html" style="text-decoration: none; color: inherit;"><span title="Account">👤</span></a>
-            <!-- Wishlist Link -->
             <a href="wishlist.html" style="text-decoration: none; color: inherit;"><span title="Wishlist">🤍</span></a>
-            <!-- Functional Cart Toggle -->
             <span style="cursor: pointer;" onclick="toggleCart()" title="View Cart">🛒(<span id="cart-count-nav">0</span>)</span>
         </div>
     </header>
@@ -399,7 +395,6 @@
     </footer>
 
     <script>
-        // --- Sakura Petals Animation ---
         const container = document.querySelector('.sakura-container');
         for (let i = 0; i < 25; i++) {
             let petal = document.createElement('div');
@@ -413,26 +408,21 @@
             container.appendChild(petal);
         }
 
-        // --- Store Original Order for "Featured" ---
-        // This remembers your default layout so we can reset to it
         window.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.product-card').forEach((card, index) => {
                 card.dataset.originalIndex = index;
             });
         });
 
-        // --- Sorting Functionality ---
         function sortProducts() {
             const grid = document.querySelector('.product-grid');
             const cards = Array.from(grid.querySelectorAll('.product-card'));
             const sortType = document.getElementById('sortOptions').value;
 
             cards.sort((a, b) => {
-                // Get the titles
                 const titleA = a.querySelector('.product-title').innerText.toLowerCase();
                 const titleB = b.querySelector('.product-title').innerText.toLowerCase();
                 
-                // Get the prices (remove $ and commas)
                 const priceA = parseFloat(a.querySelector('.product-price').innerText.replace(/[$,]/g, ''));
                 const priceB = parseFloat(b.querySelector('.product-price').innerText.replace(/[$,]/g, ''));
 
@@ -441,29 +431,24 @@
                 if (sortType === 'price-low') return priceA - priceB;
                 if (sortType === 'price-high') return priceB - priceA;
                 
-                // --- NEW: Most Relevant Sorting (GPUs First) ---
+
                 if (sortType === 'relevant') {
-                    // Check if title has GPU keywords
                     const isGpuA = titleA.includes('rtx') || titleA.includes('rx ');
                     const isGpuB = titleB.includes('rtx') || titleB.includes('rx ');
 
-                    if (isGpuA && !isGpuB) return -1; // A is a GPU, move it up
-                    if (!isGpuA && isGpuB) return 1;  // B is a GPU, move it up
+                    if (isGpuA && !isGpuB) return -1; 
+                    if (!isGpuA && isGpuB) return 1;  
                     
-                    // If they are both GPUs (or neither), keep them in their original order
                     return parseInt(a.dataset.originalIndex) - parseInt(b.dataset.originalIndex);
                 }
 
-                // Default / Featured: Reset to the original HTML layout
                 return parseInt(a.dataset.originalIndex) - parseInt(b.dataset.originalIndex);
             });
 
-            // Clear the grid and re-add the sorted cards
             grid.innerHTML = '';
             cards.forEach(card => grid.appendChild(card));
         }
 
-                // --- UI Functionality ---
         function toggleSearch() {
             const input = document.getElementById('search-bar');
             if (input.style.width === '0px' || input.style.width === '') {
@@ -481,19 +466,14 @@
             cart.style.right = (cart.style.right === '0px') ? '-350px' : '0px';
         }
 
-        // --- Auto-Inject Wishlist Buttons & Logic ---
         window.addEventListener('DOMContentLoaded', () => {
-            // 1. Inject the buttons into every product card automatically
             document.querySelectorAll('.product-card').forEach(card => {
-                // Prevent duplicate buttons if the script runs twice
                 if(card.querySelector('.btn-wishlist-toggle')) return;
                 
-                // Grab the specific product's details directly from your existing HTML
                 const title = card.querySelector('.product-title').innerText;
                 const price = card.querySelector('.product-price').innerText;
                 const img = card.querySelector('.product-img img').getAttribute('src');
                 
-                // Create the heart button
                 const btn = document.createElement('button');
                 btn.className = 'btn-wishlist-toggle';
                 btn.innerHTML = '🤍';
@@ -501,16 +481,13 @@
                 btn.setAttribute('data-price', price);
                 btn.setAttribute('data-img', img);
                 
-                // Add the click functionality
                 btn.addEventListener('click', function() {
                     toggleWishlist(this);
                 });
                 
-                // Add the button to the top of the product card
                 card.prepend(btn);
             });
             
-            // 2. Check browser memory to see which hearts should already be red
             let wishlist = JSON.parse(localStorage.getItem('kitsune_wishlist')) || [];
             document.querySelectorAll('.btn-wishlist-toggle').forEach(button => {
                 const name = button.getAttribute('data-name');
@@ -521,54 +498,39 @@
             });
         });
         
-        // --- Wishlist Save/Remove Logic ---
         function toggleWishlist(button) {
             const name = button.getAttribute('data-name');
             const price = button.getAttribute('data-price');
             const img = button.getAttribute('data-img');
-            
-            // Get current wishlist from memory
             let wishlist = JSON.parse(localStorage.getItem('kitsune_wishlist')) || [];
             const existingIndex = wishlist.findIndex(item => item.name === name);
             
             if (existingIndex > -1) {
-                // Item exists: Remove it
                 wishlist.splice(existingIndex, 1);
                 button.innerText = '🤍';
                 button.classList.remove('active');
             } else {
-                // Item doesn't exist: Add it
                 wishlist.push({ name, price, img });
                 button.innerText = '❤️';
                 button.classList.add('active');
             }
-            
-            // Save updated list back to memory
             localStorage.setItem('kitsune_wishlist', JSON.stringify(wishlist));
         }
-
-                // --- Live Search Filter ---
         window.addEventListener('DOMContentLoaded', () => {
             const searchInput = document.getElementById('search-bar');
             
-            // Make sure the search bar actually exists on this page before running
             if (searchInput) {
                 searchInput.addEventListener('input', (event) => {
-                    // Get what the user typed and make it lowercase
                     const searchTerm = event.target.value.toLowerCase();
-                    // Grab every single product card on the screen
                     const productCards = document.querySelectorAll('.product-card');
                     
                     productCards.forEach(card => {
-                        // Get the title of this specific card
                         const titleElement = card.querySelector('.product-title');
                         
                         if (titleElement) {
                             const title = titleElement.innerText.toLowerCase();
-                            
-                            // If the title includes the typed words, show the card. If not, hide it!
                             if (title.includes(searchTerm)) {
-                                card.style.display = 'flex'; // Your styles.css uses flex for product cards
+                                card.style.display = 'flex'; 
                                 } else {
                                     card.style.display = 'none';
                                 }
@@ -579,20 +541,14 @@
             });
 
                     window.addEventListener('DOMContentLoaded', () => {
-            // 1. Attach click events to all "ADD TO CART" buttons automatically
             document.querySelectorAll('.btn-add').forEach(button => {
-                // Prevent adding duplicate listeners if the script runs twice
                 if(button.hasAttribute('data-cart-active')) return;
                 button.setAttribute('data-cart-active', 'true');
                 
                 button.addEventListener('click', function() {
-                    // Find the parent product card
                     const card = this.closest('.product-card');
-                    
-                    // Extract product details directly from the HTML
                     const name = card.querySelector('.product-title').innerText;
                     const priceText = card.querySelector('.product-price').innerText;
-                    // Remove the $ and commas to turn it into a real math number
                     const price = parseFloat(priceText.replace(/[$,]/g, '')); 
                     const img = card.querySelector('.product-img img').getAttribute('src');
                     
@@ -600,29 +556,23 @@
                 });
             });
             
-            // 2. Load the cart UI immediately when the page opens
             updateCartUI();
         });
         
         function addToCart(name, price, img) {
             let cart = JSON.parse(localStorage.getItem('kitsune_cart')) || [];
             
-            // Check if the item is already in the cart
             let existingItem = cart.find(item => item.name === name);
             
             if (existingItem) {
-                existingItem.quantity += 1; // Increase quantity
+                existingItem.quantity += 1; 
             } else {
-                cart.push({ name, price, img, quantity: 1 }); // Add new item
+                cart.push({ name, price, img, quantity: 1 }); 
             }
-
-            // Save to browser memory
             localStorage.setItem('kitsune_cart', JSON.stringify(cart));
             
-            // Refresh the visuals
             updateCartUI();
             
-            // Auto-open the cart sidebar to show the user it worked!
             const cartSidebar = document.getElementById('cartSidebar');
             if (cartSidebar) {
                 cartSidebar.style.right = '0px';
@@ -634,7 +584,6 @@
             const cartItemsContainer = document.getElementById('cartItems');
             const cartCountNav = document.getElementById('cart-count-nav');
             
-            // Find the total price span dynamically based on your HTML structure
             const totalSpan = document.querySelector('#cartSidebar div[style*="border-top"] span');
             
             let totalItems = 0;
@@ -644,15 +593,14 @@
                 cartItemsContainer.innerHTML = '<p style="margin-top: 50px;">The pack is empty. Time to hunt for parts!</p>';
                 cartItemsContainer.style.overflowY = 'visible';
             } else {
-                cartItemsContainer.innerHTML = ''; // Clear empty message
-                cartItemsContainer.style.overflowY = 'auto'; // Add scrolling if they add too many items
+                cartItemsContainer.innerHTML = ''; 
+                cartItemsContainer.style.overflowY = 'auto'; 
                 cartItemsContainer.style.overflowX = 'hidden';
                 
                 cart.forEach((item, index) => {
                     totalItems += item.quantity;
                     totalPrice += (item.price * item.quantity);
                     
-                    // Build the HTML for each cart item inside the sidebar
                     cartItemsContainer.innerHTML += `
                     <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px; text-align: left; border-bottom: 1px solid #eee; padding-bottom: 15px;">
                         <img src="${item.img}" style="width: 60px; height: 60px; object-fit: contain; background: #f5f5f5; border-radius: 8px; flex-shrink: 0;">
@@ -675,7 +623,6 @@
                 });
             }
             
-            // Update the numbers on the screen
             if (cartCountNav) cartCountNav.innerText = totalItems;
             if (totalSpan) totalSpan.innerText = '$' + totalPrice.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
         }
@@ -684,12 +631,10 @@
             let cart = JSON.parse(localStorage.getItem('kitsune_cart')) || [];
             cart[index].quantity += amount;
             
-            // Remove the item completely if quantity drops to 0
             if (cart[index].quantity <= 0) {
                 cart.splice(index, 1);
             }
             
-            // Save and refresh
             localStorage.setItem('kitsune_cart', JSON.stringify(cart));
             updateCartUI();
         }

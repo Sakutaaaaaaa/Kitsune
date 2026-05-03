@@ -74,7 +74,6 @@
                 </select>
             </div>
             
-            <!-- FULL GPU ROW (CUSTOM UI) -->
             <div class="selection-row">
                 <div class="selection-label">Graphics Card:</div>
                 
@@ -118,7 +117,6 @@
         </div>
     </main>
 
-    <!-- Cart Sidebar -->
     <div id="cartSidebar" style="position: fixed; top: 0; right: -350px; width: 300px; height: 100%; 
          background: white; box-shadow: -5px 0 15px rgba(0,0,0,0.1); z-index: 1001; 
          transition: right 0.3s ease; padding: 25px; display: flex; flex-direction: column; box-sizing: border-box;">
@@ -147,7 +145,6 @@
 
     <script>
     
-    // --- Sakura Animation ---
         const container = document.querySelector('.sakura-container');
         for (let i = 0; i < 25; i++) {
             let petal = document.createElement('div');
@@ -161,7 +158,6 @@
             container.appendChild(petal);
         }
 
-        // --- UI Nav Functionality ---
         function toggleSearch() {
             const input = document.getElementById('search-bar');
             if (input.style.width === '0px' || input.style.width === '') {
@@ -179,17 +175,14 @@
             cart.style.right = (cart.style.right === '0px') ? '-350px' : '0px';
         }
 
-        // --- Custom Dropdown Logic ---
         const gpuDropdown = document.getElementById('gpu-dropdown');
         const selectedText = gpuDropdown.querySelector('.dropdown-selected');
         const list = gpuDropdown.querySelector('.dropdown-list');
 
-        // Toggle the list open/closed when clicked
         selectedText.addEventListener('click', () => {
             list.classList.toggle('show');
         });
 
-        // When an item is clicked, update the text and save the data invisibly
         gpuDropdown.querySelectorAll('.dropdown-item').forEach(item => {
             item.addEventListener('click', () => {
                 selectedText.innerText = item.innerText;
@@ -199,25 +192,23 @@
             });
         });
 
-        // Close the dropdown if the user clicks anywhere else on the screen
         document.addEventListener('click', (e) => {
             if (!gpuDropdown.contains(e.target)) {
                 list.classList.remove('show');
             }
         });
 
-        // --- Compatibility Logic ---
+
         function checkCompatibility() {
             const cpuBrand = document.getElementById('cpu-brand').value;
             const moboSelect = document.getElementById('motherboard');
             const caseSelect = document.getElementById('case');
             const statusBox = document.getElementById('status');
 
-            // Read the data from our new custom dropdown
             const gpuValue = gpuDropdown.getAttribute('data-value');
             const gpuSize = gpuDropdown.getAttribute('data-size');
 
-            // 1. Check if all fields are filled
+
             if (!cpuBrand || moboSelect.value === "" || gpuValue === "" || caseSelect.value === "") {
                 statusBox.className = "status-box error";
                 statusBox.innerText = "Please select all components before verifying.";
@@ -233,22 +224,21 @@
 
             let errors = [];
 
-            // 2. Check CPU vs Motherboard
             if (cpuBrand !== moboBrand) {
                 errors.push(`❌ Brand Mismatch: You selected an ${cpuBrand.toUpperCase()} CPU, but a motherboard that only supports ${moboBrand.toUpperCase()}.`);
             }
 
-            // 3. Check Motherboard Size vs Case Size
+
             if (caseSize === "micro" && moboSize === "atx") {
                 errors.push("❌ Size Conflict: The Kawaii Neko Case is too small for a full ATX Motherboard. Please choose a Micro-ATX motherboard or a larger case.");
             }
 
-            // 4. Check GPU Size vs Case Size
+
             if (caseSize === "micro" && gpuSize === "large") {
                 errors.push("❌ Clearance Issue: The selected Graphics Card is too large for the Micro-ATX case. Please choose a medium card or a larger chassis.");
             }
 
-            // Display Results
+
             if (errors.length > 0) {
                 statusBox.className = "status-box error";
                 statusBox.innerHTML = errors.join("<br><br>");
@@ -259,20 +249,15 @@
         }
 
                 window.addEventListener('DOMContentLoaded', () => {
-            // 1. Attach click events to all "ADD TO CART" buttons automatically
             document.querySelectorAll('.btn-add').forEach(button => {
-                // Prevent adding duplicate listeners if the script runs twice
                 if(button.hasAttribute('data-cart-active')) return;
                 button.setAttribute('data-cart-active', 'true');
                 
                 button.addEventListener('click', function() {
-                    // Find the parent product card
                     const card = this.closest('.product-card');
                     
-                    // Extract product details directly from the HTML
                     const name = card.querySelector('.product-title').innerText;
                     const priceText = card.querySelector('.product-price').innerText;
-                    // Remove the $ and commas to turn it into a real math number
                     const price = parseFloat(priceText.replace(/[$,]/g, '')); 
                     const img = card.querySelector('.product-img img').getAttribute('src');
                     
@@ -280,29 +265,24 @@
                 });
             });
             
-            // 2. Load the cart UI immediately when the page opens
             updateCartUI();
         });
         
         function addToCart(name, price, img) {
             let cart = JSON.parse(localStorage.getItem('kitsune_cart')) || [];
             
-            // Check if the item is already in the cart
             let existingItem = cart.find(item => item.name === name);
             
             if (existingItem) {
-                existingItem.quantity += 1; // Increase quantity
+                existingItem.quantity += 1;
             } else {
-                cart.push({ name, price, img, quantity: 1 }); // Add new item
+                cart.push({ name, price, img, quantity: 1 });
             }
 
-            // Save to browser memory
             localStorage.setItem('kitsune_cart', JSON.stringify(cart));
             
-            // Refresh the visuals
             updateCartUI();
             
-            // Auto-open the cart sidebar to show the user it worked!
             const cartSidebar = document.getElementById('cartSidebar');
             if (cartSidebar) {
                 cartSidebar.style.right = '0px';
@@ -314,7 +294,6 @@
             const cartItemsContainer = document.getElementById('cartItems');
             const cartCountNav = document.getElementById('cart-count-nav');
             
-            // Find the total price span dynamically based on your HTML structure
             const totalSpan = document.querySelector('#cartSidebar div[style*="border-top"] span');
             
             let totalItems = 0;
@@ -324,15 +303,14 @@
                 cartItemsContainer.innerHTML = '<p style="margin-top: 50px;">The pack is empty. Time to hunt for parts!</p>';
                 cartItemsContainer.style.overflowY = 'visible';
             } else {
-                cartItemsContainer.innerHTML = ''; // Clear empty message
-                cartItemsContainer.style.overflowY = 'auto'; // Add scrolling if they add too many items
+                cartItemsContainer.innerHTML = ''; 
+                cartItemsContainer.style.overflowY = 'auto'; 
                 cartItemsContainer.style.overflowX = 'hidden';
                 
                 cart.forEach((item, index) => {
                     totalItems += item.quantity;
                     totalPrice += (item.price * item.quantity);
                     
-                    // Build the HTML for each cart item inside the sidebar
                     cartItemsContainer.innerHTML += `
                     <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px; text-align: left; border-bottom: 1px solid #eee; padding-bottom: 15px;">
                         <img src="${item.img}" style="width: 60px; height: 60px; object-fit: contain; background: #f5f5f5; border-radius: 8px; flex-shrink: 0;">
@@ -355,7 +333,7 @@
                 });
             }
             
-            // Update the numbers on the screen
+
             if (cartCountNav) cartCountNav.innerText = totalItems;
             if (totalSpan) totalSpan.innerText = '$' + totalPrice.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
         }
@@ -364,12 +342,11 @@
             let cart = JSON.parse(localStorage.getItem('kitsune_cart')) || [];
             cart[index].quantity += amount;
             
-            // Remove the item completely if quantity drops to 0
+
             if (cart[index].quantity <= 0) {
                 cart.splice(index, 1);
             }
             
-            // Save and refresh
             localStorage.setItem('kitsune_cart', JSON.stringify(cart));
             updateCartUI();
         }
