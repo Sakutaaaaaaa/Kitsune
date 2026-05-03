@@ -10,7 +10,7 @@
     --card-bg: #ffffff;
     --btn-pink: #ffb6c1;
     --btn-blue: #a2d2ff;
-    --kitsune-orange: #ff7f50; 
+    --kitsune-orange: #ffd1dc; 
     --success-green: #4caf50;
     --error-red: #f44336;
 }
@@ -541,12 +541,12 @@ h2.section-title {
 .btn-add:hover { background-color: var(--btn-blue); }
 
 .btn-fox { 
-    background-color: var(--kitsune-orange); 
-    border-color: var(--kitsune-orange); 
+    background-color: var(--btn-pink); 
+    border-color: var(--btn-pink); 
 }
 
 .btn-fox:hover { 
-    background-color: #e65c00; 
+    background-color: #ffd1dc; 
 }
 
 
