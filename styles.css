@@ -1,7 +1,3 @@
-/* =========================================
-   KITSUNE OFFICIAL STORE - GLOBAL CSS
-   ========================================= */
-
 /* --- 1. CSS Variables --- */
 :root {
     --pastel-pink: #ffd1dc;
@@ -15,7 +11,6 @@
     --error-red: #f44336;
 }
 
-/* --- 2. Global Styles --- */
 body { 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
     margin: 0; 
@@ -26,7 +21,6 @@ body {
     scrollbar-gutter: stable; 
 }
 
-/* --- 3. Animations --- */
 .sakura-container { 
     position: fixed; 
     top: 0; 
@@ -55,7 +49,6 @@ body {
     100% { transform: translateY(110vh) translateX(50px) rotate(360deg); } 
 }
 
-/* --- 4. Header & Navigation --- */
 header { 
     display: flex; 
     justify-content: space-between; 
@@ -105,7 +98,6 @@ nav a:hover {
     margin-left: 15px; 
 }
 
-/* Dropdown Menu */
 .dropdown { 
     position: relative; 
     display: inline-block; 
@@ -153,8 +145,6 @@ nav a:hover {
     display: block; 
 }
 
-/* --- 5. Layout Controls --- */
-/* Page Headers */
 .page-header { 
     background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url("Media/bg-kitsune.jpg"); 
     background-position: center; 
@@ -184,9 +174,8 @@ nav a:hover {
     font-size: 48px; 
 }
 
-/* Main Content Wrappers */
 main { 
-    padding: 40px 50px; /* Default for catalogs */
+    padding: 40px 50px; 
 } 
 
 main.layout-about { 
@@ -205,12 +194,11 @@ main.layout-contact {
 }
 
 main.layout-compat { 
-    padding: 40px 50px 300px 50px; /* The 300px adds extra invisible space at the bottom */
+    padding: 40px 50px 300px 50px; 
     display: flex; 
     justify-content: center; 
 }
 
-/* Footers */
 footer { 
     background: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url("Media/bg-kitsune.jpg"); 
     background-size: cover; 
@@ -230,8 +218,6 @@ footer.col-3 { grid-template-columns: repeat(3, 1fr); }
 .footer-col ul { list-style: none; padding: 0; }
 .footer-col ul li { margin-bottom: 8px; cursor: pointer; }
 
-
-/* --- 6. Homepage / Index Styles --- */
 .hero {
     background: linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)), url("Media/bg-kitsune.jpg");
     background-size: cover; 
@@ -287,7 +273,6 @@ h2.section-title {
     gap: 10px; 
 }
 
-/* Featured Builds */
 .builds-grid { 
     display: grid; 
     grid-template-columns: repeat(2, 1fr); 
@@ -380,7 +365,6 @@ h2.section-title {
     color: white; 
 }
 
-/* Brand Intro */
 .brand-intro {
     background: linear-gradient(135deg, #ffffff, #fce4ec); 
     border-radius: 20px; 
@@ -415,7 +399,6 @@ h2.section-title {
     border-radius: 50%; 
 }
 
-/* Newsletter Input */
 .newsletter input { 
     padding: 10px; 
     border: 1px solid #ccc; 
@@ -433,8 +416,6 @@ h2.section-title {
     cursor: pointer; 
 }
 
-
-/* --- 7. Product Catalog Elements --- */
 .toolbar { 
     display: flex; 
     justify-content: space-between; 
@@ -549,10 +530,6 @@ h2.section-title {
     background-color: #ffd1dc; 
 }
 
-
-/* --- 8. Specific Page Sections --- */
-
-/* About Us */
 .content-section {
     background: white; 
     padding: 40px; 
@@ -569,7 +546,6 @@ h2.section-title {
     margin-top: 0; 
 }
 
-/* Contact Support */
 .form-section { 
     background: white; 
     padding: 30px; 
@@ -619,7 +595,6 @@ h2.section-title {
 .faq-item h3 { margin-top: 0; font-size: 16px; color: #333; }
 .faq-item p { margin-bottom: 0; font-size: 14px; color: #666; }
 
-/* Compatibility Builder */
 .builder-container {
     background: white; 
     padding: 30px; 
@@ -628,7 +603,7 @@ h2.section-title {
     width: 100%; 
     max-width: 800px; 
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    margin: 0 auto; /* Added fix to center the container! */
+    margin: 0 auto; 
 }
 
 .selection-row { 
@@ -691,9 +666,6 @@ h2.section-title {
     margin-top: 20px;
 }
 
-/* =========================================
-   Account Page Specific Layout
-   ========================================= */
 .account-container {
     display: flex;
     gap: 40px;
@@ -786,11 +758,8 @@ h2.section-title {
     font-weight: bold;
 }
 
-/* =========================================
-   Universal Product Card Heart Button
-   ========================================= */
 .product-card {
-    position: relative; /* Ensure this is here so the absolute heart stays inside the card */
+    position: relative; 
 }
 
 .btn-wishlist-toggle {
@@ -816,13 +785,6 @@ h2.section-title {
     transform: scale(1.1);
 }
 
-/* =========================================
-   Wishlist Buttons (Heart & X) Positioning
-   ========================================= */
-.product-card {
-    /* This is the secret ingredient! It traps the absolute buttons inside the card */
-    position: relative; 
-}
 
 .btn-wishlist-toggle, 
 .btn-remove-wishlist {
@@ -851,21 +813,15 @@ h2.section-title {
 
 .btn-wishlist-toggle:hover, 
 .btn-remove-wishlist:hover {
-    transform: scale(1.15); /* Gives it a nice pop when you hover over it */
+    transform: scale(1.15); 
 }
 
-/* =========================================
-   Custom Dropdown (Forces Downward Open)
-   ========================================= */
 .custom-dropdown {
     flex-grow: 1;
     position: relative;
     cursor: pointer;
 }
 
-/* =========================================
-   Custom Dropdown (Perfect Native Look)
-   ========================================= */
 .dropdown-selected {
     padding: 12px;
     padding-right: 37px; 
@@ -874,10 +830,7 @@ h2.section-title {
     background-color: white;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23333333' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    
-    /* Reduced from 15px to 10px to push the arrow to the right */
     background-position: right 2px center; 
-    
     background-size: 14px;
     font-family: inherit;
     font-size: 16px;
@@ -889,7 +842,6 @@ h2.section-title {
     border-color: var(--pastel-blue); 
 }
 
-/* Make sure to DELETE your existing .dropdown-selected::after block! */
 .dropdown-selected::after {
     display: none; 
 }
@@ -904,7 +856,7 @@ h2.section-title {
     border: 2px solid var(--pastel-pink);
     border-radius: 10px;
     margin-top: 5px;
-    max-height: 250px; /* This is the magic! Forces a scrollbar instead of going up */
+    max-height: 250px; 
     overflow-y: auto;
     z-index: 100;
     box-shadow: 0 10px 20px rgba(0,0,0,0.1);
@@ -924,3 +876,243 @@ h2.section-title {
 }
 
 .btn-check:hover { background-color: var(--btn-blue); }
+
+@media (max-width: 768px) {
+    
+    * {
+        box-sizing: border-box !important;
+    }
+    
+    body, main {
+        overflow-x: hidden; 
+        width: 100%;
+    }
+
+    header { 
+        background: #ffffff !important; 
+        flex-direction: row !important; 
+        flex-wrap: wrap !important; 
+        justify-content: space-between; 
+        align-items: center;
+        padding: 15px 20px !important; 
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+    }
+
+    header::before {
+        content: '\2630'; 
+        font-size: 24px;
+        color: #333;
+        flex: 1 1 auto; 
+        cursor: pointer;
+    }
+
+    .logo {
+        flex: 1 1 auto; 
+        justify-content: flex-start;
+        font-size: 20px;
+        margin-bottom: 15px; 
+    }
+
+    .brand-logo {
+        height: 35px;
+    }
+
+    .nav-icons {
+        flex: 0 0 auto;
+        justify-content: flex-end;
+        width: auto;
+        margin-top: 0;
+        margin-bottom: 15px; 
+        gap: 15px;
+    }
+    
+    .nav-icons span {
+        margin-left: 0;
+        color: #333; 
+    }
+
+    nav {
+        display: flex !important; 
+        flex-direction: row !important;
+        flex-wrap: wrap !important; 
+        justify-content: center !important;
+        width: 100%;
+        padding: 10px 0;
+        border-top: 1px solid #f0f0f0;
+        gap: 15px !important;
+    }
+
+    nav a, .dropdown {
+        margin: 0 !important;
+        font-size: 13px; 
+        white-space: normal; 
+        color: #333;
+    }
+
+    .hero {
+        height: auto !important; 
+        padding: 40px 20px !important;
+        flex-direction: column !important;
+        text-align: center;
+        background-position: center;
+    }
+
+    .hero-content {
+        max-width: 100%;
+        margin-bottom: 30px; 
+        z-index: 10;
+        position: relative;
+    }
+
+    .hero h1 { font-size: 36px; }
+
+    .hero-mascot {
+        position: relative !important; 
+        width: 100% !important;
+        max-width: 320px; 
+        right: auto !important;
+        top: auto !important;
+        transform: none !important;
+        margin: 0 auto;
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px; 
+        padding: 0;
+    }
+
+    .product-card {
+        border: none !important; 
+        box-shadow: none !important;
+        padding: 10px 5px; 
+        text-align: left; 
+    }
+
+    .product-img {
+        background: none; 
+        height: auto;
+        min-height: 120px;
+        padding: 0;
+        margin-bottom: 10px;
+    }
+
+    .product-title {
+        font-weight: normal; 
+        font-size: 13px;
+        color: #333;
+        min-height: auto;
+    }
+
+    .product-price {
+        font-size: 16px;
+        color: #333; 
+    }
+
+    .product-card .btn-add {
+        display: none; 
+    }
+
+    .builds-grid {
+        grid-template-columns: 1fr !important;
+        width: 100%;
+    }
+
+    .build-card {
+        flex-direction: column !important; 
+        align-items: center;
+        width: 100% !important;
+        padding: 20px;
+        box-sizing: border-box !important; 
+    }
+
+    .build-img {
+        width: 100% !important;
+        height: auto !important;
+        margin-bottom: 20px !important; 
+    }
+
+    .build-details {
+        width: 100% !important;
+        text-align: center; 
+    }
+
+    footer, footer.col-3 { 
+        background: #ffffff !important; 
+        grid-template-columns: 1fr !important; 
+        gap: 25px;
+        padding: 40px 20px;
+        text-align: left; 
+        margin-top: 20px;
+    }
+
+    .footer-col h4 {
+        color: #333;
+        font-weight: normal;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .footer-col ul {
+        display: block;
+        text-align: left;
+    }
+
+    .footer-col ul li {
+        margin-bottom: 15px;
+        color: #666;
+    }
+
+    .newsletter {
+        margin-bottom: 20px;
+    }
+
+    .newsletter input {
+        width: 100%; 
+        box-sizing: border-box;
+        border-radius: 0; 
+        padding: 15px;
+        border: 1px solid #ddd;
+    }
+
+    main {
+        padding: 15px 10px; 
+    }
+
+    .brand-intro {
+        flex-direction: column-reverse; 
+        padding: 30px 20px;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .intro-text { 
+        max-width: 100% !important; 
+    }
+
+    main.layout-contact { 
+        grid-template-columns: 1fr !important;
+        gap: 30px; 
+    }
+
+    .builder-container {
+        padding: 25px 20px !important;
+    }
+
+    .selection-row { 
+        flex-direction: column !important; 
+        align-items: flex-start !important; 
+        gap: 8px !important; 
+        margin-bottom: 15px !important;
+    }
+
+    .selection-label { 
+        width: 100% !important; 
+        text-align: left;
+    }
+
+    .selection-row select {
+        width: 100% !important; 
+        box-sizing: border-box !important;
+    }
+}

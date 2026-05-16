@@ -201,15 +201,12 @@
     for (let i = 0; i < 25; i++) {
         let petal = document.createElement('div');
         petal.classList.add('sakura');
-
         petal.style.left = Math.random() * 100 + 'vw';
-
         let size = Math.random() * 10 + 10;
         petal.style.width = size + 'px';
         petal.style.height = size + 'px';
 
         petal.style.animationDuration = (Math.random() * 5 + 5) + 's';
-
         petal.style.animationDelay = Math.random() * 5 + 's';
 
         container.appendChild(petal);
@@ -235,20 +232,25 @@
         window.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.product-card').forEach(card => {
                 if(card.querySelector('.btn-wishlist-toggle')) return;
+                
                 const title = card.querySelector('.product-title').innerText;
                 const price = card.querySelector('.product-price').innerText;
                 const img = card.querySelector('.product-img img').getAttribute('src');
+                
                 const btn = document.createElement('button');
                 btn.className = 'btn-wishlist-toggle';
                 btn.innerHTML = '🤍';
                 btn.setAttribute('data-name', title);
                 btn.setAttribute('data-price', price);
                 btn.setAttribute('data-img', img);
+                
                 btn.addEventListener('click', function() {
                     toggleWishlist(this);
                 });
+                
                 card.prepend(btn);
             });
+            
             let wishlist = JSON.parse(localStorage.getItem('kitsune_wishlist')) || [];
             document.querySelectorAll('.btn-wishlist-toggle').forEach(button => {
                 const name = button.getAttribute('data-name');
@@ -277,30 +279,22 @@
                 button.classList.add('active');
             }
             
-
             localStorage.setItem('kitsune_wishlist', JSON.stringify(wishlist));
         }
         
-
         window.addEventListener('DOMContentLoaded', () => {
             const searchInput = document.getElementById('search-bar');
             
-
             if (searchInput) {
                 searchInput.addEventListener('input', (event) => {
-
                     const searchTerm = event.target.value.toLowerCase();
-
                     const productCards = document.querySelectorAll('.product-card');
                     
                     productCards.forEach(card => {
-
                         const titleElement = card.querySelector('.product-title');
                         
                         if (titleElement) {
-                            const title = titleElement.innerText.toLowerCase();
-                            
-
+                            const title = titleElement.innerText.toLowerCase();                            
                             if (title.includes(searchTerm)) {
                                 card.style.display = 'flex'; 
                                 } else {
@@ -319,6 +313,7 @@
                 
                 button.addEventListener('click', function() {
                     const card = this.closest('.product-card');
+                    
                     const name = card.querySelector('.product-title').innerText;
                     const priceText = card.querySelector('.product-price').innerText;
                     const price = parseFloat(priceText.replace(/[$,]/g, '')); 
@@ -327,6 +322,7 @@
                     addToCart(name, price, img);
                 });
             });
+            
             updateCartUI();
         });
         
@@ -372,7 +368,7 @@
                 cart.forEach((item, index) => {
                     totalItems += item.quantity;
                     totalPrice += (item.price * item.quantity);
-                    
+
                     cartItemsContainer.innerHTML += `
                     <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px; text-align: left; border-bottom: 1px solid #eee; padding-bottom: 15px;">
                         <img src="${item.img}" style="width: 60px; height: 60px; object-fit: contain; background: #f5f5f5; border-radius: 8px; flex-shrink: 0;">
@@ -395,6 +391,7 @@
                 });
             }
             
+
             if (cartCountNav) cartCountNav.innerText = totalItems;
             if (totalSpan) totalSpan.innerText = '$' + totalPrice.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
         }
@@ -407,7 +404,6 @@
                 cart.splice(index, 1);
             }
             
-
             localStorage.setItem('kitsune_cart', JSON.stringify(cart));
             updateCartUI();
         }
