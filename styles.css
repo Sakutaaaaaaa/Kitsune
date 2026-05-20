@@ -701,18 +701,23 @@ h2.section-title {
     border: 2px solid var(--error-red); 
 }
 
-.btn-check {
+
+.btn-verify { 
     width: 100%; 
     padding: 15px; 
     background-color: var(--btn-pink); 
     color: white; 
-    border: none;
+    border: none; 
     border-radius: 30px; 
     font-size: 18px; 
     font-weight: bold; 
     cursor: pointer; 
     transition: background-color 0.3s; 
-    margin-top: 20px;
+    margin-top: 20px; 
+}
+
+.btn-verify:hover { 
+    background-color: var(--btn-blue); 
 }
 
 .account-container {
