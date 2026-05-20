@@ -150,7 +150,7 @@ nav a:hover {
 }
 
 .page-header { 
-    background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url("Media/bg-kitsune.jpg"); 
+    background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url("assets/bg-kitsune.jpg"); 
     background-position: center; 
     background-size: cover; 
     padding: 60px 50px; 
@@ -210,7 +210,7 @@ footer{
     linear-gradient(
     rgba(255,255,255,.75),
     rgba(255,255,255,.75)),
-    url("Media/bg-kitsune.jpg");
+    url("assets/bg-kitsune.jpg");
 
     background-size:cover;
     background-position:center;
@@ -268,7 +268,7 @@ footer.col-3{
 }
 
 .hero {
-    background: linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)), url("Media/bg-kitsune.jpg");
+    background: linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)), url("assets/bg-kitsune.jpg");
     background-size: cover; 
     background-position: right center; 
     background-repeat: no-repeat;
@@ -1092,7 +1092,7 @@ h2.section-title {
         linear-gradient(
         rgba(255,255,255,.75),
         rgba(255,255,255,.75)),
-        url("Media/bg-kitsune.jpg");
+        url("assets/bg-kitsune.jpg");
         
         background-size:cover;
         background-position:center;
