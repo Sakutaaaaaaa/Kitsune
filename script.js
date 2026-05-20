@@ -1,7 +1,7 @@
 {
 
         const container = document.querySelector('.sakura-container');
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 5; i++) {
             let petal = document.createElement('div');
             petal.classList.add('sakura');
             petal.style.left = Math.random() * 100 + 'vw';
@@ -135,7 +135,7 @@
 {
 
         const container = document.querySelector('.sakura-container');
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 5; i++) {
             let petal = document.createElement('div');
             petal.classList.add('sakura');
             petal.style.left = Math.random() * 100 + 'vw';
@@ -263,7 +263,7 @@
 {
 
         const container = document.querySelector('.sakura-container');
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 5; i++) {
             let petal = document.createElement('div');
             petal.classList.add('sakura');
             petal.style.left = Math.random() * 100 + 'vw';
@@ -521,7 +521,7 @@
 {
 
         const container = document.querySelector('.sakura-container');
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 5; i++) {
             let petal = document.createElement('div');
             petal.classList.add('sakura');
             petal.style.left = Math.random() * 100 + 'vw';
@@ -769,7 +769,7 @@
 
     
         const container = document.querySelector('.sakura-container');
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 5; i++) {
             let petal = document.createElement('div');
             petal.classList.add('sakura');
             petal.style.left = Math.random() * 100 + 'vw';
@@ -978,7 +978,7 @@
 {
 
         const container = document.querySelector('.sakura-container');
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 5; i++) {
             let petal = document.createElement('div');
             petal.classList.add('sakura');
             petal.style.left = Math.random() * 100 + 'vw';
@@ -1115,7 +1115,7 @@
 
     const container = document.querySelector('.sakura-container');
     
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 5; i++) {
         let petal = document.createElement('div');
         petal.classList.add('sakura');
         petal.style.left = Math.random() * 100 + 'vw';
@@ -1329,7 +1329,7 @@
 {
 
         const container = document.querySelector('.sakura-container');
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 5; i++) {
             let petal = document.createElement('div');
             petal.classList.add('sakura');
             petal.style.left = Math.random() * 100 + 'vw';
@@ -1583,7 +1583,7 @@
 {
 
         const container = document.querySelector('.sakura-container');
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 5; i++) {
             let petal = document.createElement('div');
             petal.classList.add('sakura');
             petal.style.left = Math.random() * 100 + 'vw';
@@ -1833,7 +1833,7 @@
 {
 
         const container = document.querySelector('.sakura-container');
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 5; i++) {
             let petal = document.createElement('div');
             petal.classList.add('sakura');
             petal.style.left = Math.random() * 100 + 'vw';
@@ -2098,7 +2098,7 @@
 {
 
         const container = document.querySelector('.sakura-container');
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 5; i++) {
             let petal = document.createElement('div');
             petal.classList.add('sakura');
             petal.style.left = Math.random() * 100 + 'vw';
@@ -2384,7 +2384,7 @@
 
 
         const container = document.querySelector('.sakura-container');
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 5; i++) {
             let petal = document.createElement('div');
             petal.classList.add('sakura');
             petal.style.left = Math.random() * 100 + 'vw';
