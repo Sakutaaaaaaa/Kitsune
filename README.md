@@ -1,7 +1,7 @@
 Kitsune Website
 
 Project Overview
-This website was developed by BSIT 2nd year students as part of their Web Development course. Kitsune is an anime-inspired PC building and e-commerce website designed to showcase custom PC builds, computer components, compatibility checking, and user interaction features within a visually engaging platform.
+This website was developed by BSIT 2nd year students as part of their Web Development course. Kitsune is an anime-inspired PC building and e-commerce website designed to showcase anime-themed parts, computer components, compatibility checking, and user interaction features within a visually engaging platform.
 
 Purpose
 To provide users with an online platform where they can browse PC products, explore custom build series, verify compatibility, and experience an anime-themed modern e-commerce interface.
@@ -22,6 +22,8 @@ Tools Used
 
 
 Site Structure
+- `assets/` – Images, icons, media assets
+- `README.md` - project overview and team roles
 - `index.html` – Homepage
 - `catalog.html` – Product Catalog
 - `amd.html` – AMD Products
@@ -34,7 +36,6 @@ Site Structure
 - `contact-support.html` – Contact Support and FAQ
 - `wishlist.html` – Wishlist Page
 - `account.html` – User Account Profile
-- `assets/` – Images, icons, media assets
 - `script.js` – Website JavaScript functions
 - `style.css` – Website styling
 
