@@ -19,6 +19,10 @@ body {
     color: var(--dark-text); 
     line-height: 1.6; 
     scrollbar-gutter: stable; 
+    
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .sakura-container { 
@@ -176,7 +180,9 @@ nav a:hover {
 
 main { 
     padding: 40px 50px; 
-} 
+    
+    flex-grow: 1;
+}
 
 main.layout-about { 
     max-width: 900px; 
@@ -199,24 +205,67 @@ main.layout-compat {
     justify-content: center; 
 }
 
-footer { 
-    background: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url("Media/bg-kitsune.jpg"); 
-    background-size: cover; 
-    background-position: center; 
-    background-repeat: no-repeat;
-    padding: 40px 50px; 
-    display: grid; 
-    grid-template-columns: repeat(4, 1fr); 
-    gap: 30px; 
-    margin-top: 50px; 
+footer{
+    background:
+    linear-gradient(
+    rgba(255,255,255,.75),
+    rgba(255,255,255,.75)),
+    url("Media/bg-kitsune.jpg");
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+
+    width:100%;
+
+    padding:40px 50px;
+
+    margin-top:50px;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(180px,1fr));
+
+    gap:40px;
+
+    box-sizing:border-box;
+
+    overflow:hidden;
 }
 
-footer.no-margin { margin-top: 0; }
-footer.col-3 { grid-template-columns: repeat(3, 1fr); }
+footer.no-margin{
+    margin-top:0;
+}
 
-.footer-col h4 { margin-bottom: 15px; color: #d81b60; }
-.footer-col ul { list-style: none; padding: 0; }
-.footer-col ul li { margin-bottom: 8px; cursor: pointer; }
+footer.col-3{
+    grid-template-columns:
+    repeat(3,1fr);
+}
+
+.footer-col{
+    min-width:0;
+}
+
+.footer-col h4{
+    margin-bottom:15px;
+    color:#d81b60;
+}
+
+.footer-col ul{
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+
+.footer-col ul li{
+    margin-bottom:10px;
+    cursor:pointer;
+}
+
+.footer-col ul li:hover{
+    color:#d81b60;
+}
 
 .hero {
     background: linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)), url("Media/bg-kitsune.jpg");
@@ -877,7 +926,7 @@ h2.section-title {
 
 .btn-check:hover { background-color: var(--btn-blue); }
 
-@media (max-width: 768px) {
+@media (max-width:768px) {
     
     * {
         box-sizing: border-box !important;
@@ -1037,20 +1086,37 @@ h2.section-title {
         text-align: center; 
     }
 
-    footer, footer.col-3 { 
-        background: #ffffff !important; 
-        grid-template-columns: 1fr !important; 
-        gap: 25px;
-        padding: 40px 20px;
-        text-align: left; 
-        margin-top: 20px;
+    footer, footer.col-3{
+        width:100%;
+        background:
+        linear-gradient(
+        rgba(255,255,255,.75),
+        rgba(255,255,255,.75)),
+        url("Media/bg-kitsune.jpg");
+        
+        background-size:cover;
+        background-position:center;
+        background-repeat:no-repeat;
+        
+        grid-template-columns:repeat(3,1fr)!important;
+        gap:25px;
+        padding:40px 20px;
+        text-align:left;
+        margin-top:20px;
+        overflow:hidden;
     }
-
-    .footer-col h4 {
-        color: #333;
-        font-weight: normal;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+    
+    .footer-col{
+        min-width:0;
+    }
+    
+    .footer-col ul{
+        padding:0;
+        margin:0;
+    }
+    
+    .footer-col li{
+        word-break:break-word;
     }
 
     .footer-col ul {
