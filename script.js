@@ -2572,5 +2572,9 @@
             localStorage.setItem('kitsune_cart', JSON.stringify(cart));
             updateCartUI();
         }
-    
-}
+
+        function toggleMobileMenu() {
+            const nav = document.querySelector('nav');
+            nav.classList.toggle('mobile-active');
+        }
+    }

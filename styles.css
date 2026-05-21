@@ -701,7 +701,6 @@ h2.section-title {
     border: 2px solid var(--error-red); 
 }
 
-
 .btn-verify { 
     width: 100%; 
     padding: 15px; 
@@ -839,8 +838,6 @@ h2.section-title {
     transform: scale(1.1);
 }
 
-
-.btn-wishlist-toggle, 
 .btn-remove-wishlist {
     position: absolute;
     top: 15px;
@@ -858,14 +855,10 @@ h2.section-title {
     z-index: 5;
     transition: all 0.2s ease;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-
-.btn-remove-wishlist {
     color: var(--error-red);
     font-weight: bold;
 }
 
-.btn-wishlist-toggle:hover, 
 .btn-remove-wishlist:hover {
     transform: scale(1.15); 
 }
@@ -942,65 +935,52 @@ h2.section-title {
         width: 100%;
     }
 
-    header { 
-        background: #ffffff !important; 
-        flex-direction: row !important; 
-        flex-wrap: wrap !important; 
-        justify-content: space-between; 
-        align-items: center;
-        padding: 15px 20px !important; 
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+    .menu-toggle {
+        display: none !important; 
     }
 
-    header::before {
-        content: '\2630'; 
-        font-size: 24px;
-        color: #333;
-        flex: 1 1 auto; 
-        cursor: pointer;
+    header { 
+        background: #ffffff !important; 
+        flex-direction: column !important; 
+        justify-content: center !important; 
+        align-items: center !important;
+        padding: 15px !important; 
     }
 
     .logo {
-        flex: 1 1 auto; 
-        justify-content: flex-start;
-        font-size: 20px;
-        margin-bottom: 15px; 
-    }
-
-    .brand-logo {
-        height: 35px;
-    }
-
-    .nav-icons {
-        flex: 0 0 auto;
-        justify-content: flex-end;
-        width: auto;
-        margin-top: 0;
-        margin-bottom: 15px; 
-        gap: 15px;
-    }
-    
-    .nav-icons span {
-        margin-left: 0;
-        color: #333; 
+        margin-bottom: 15px !important;
+        justify-content: center !important;
+        width: 100%;
     }
 
     nav {
         display: flex !important; 
-        flex-direction: row !important;
+        position: relative !important; 
+        flex-direction: row !important; 
         flex-wrap: wrap !important; 
         justify-content: center !important;
         width: 100%;
-        padding: 10px 0;
-        border-top: 1px solid #f0f0f0;
-        gap: 15px !important;
+        box-shadow: none !important;
+        border-top: none !important;
+        padding: 0 0 15px 0 !important;
+        background: transparent !important;
+        gap: 12px !important;
     }
 
     nav a, .dropdown {
+        width: auto !important; 
+        padding: 0 !important;
+        border-bottom: none !important;
+        font-size: 13px !important;
         margin: 0 !important;
-        font-size: 13px; 
-        white-space: normal; 
-        color: #333;
+        color: #333 !important;
+    }
+
+    .nav-icons {
+        justify-content: center !important;
+        width: 100%;
+        margin: 0 !important;
+        gap: 20px !important;
     }
 
     .hero {
@@ -1184,6 +1164,18 @@ h2.section-title {
 
     .selection-row select {
         width: 100% !important; 
+        box-sizing: border-box !important;
+    }
+
+    /* Account Page Mobile Fix */
+    .account-container {
+        flex-direction: column !important;
+        padding: 0 15px !important;
+        margin: 20px auto !important;
+    }
+
+    .account-sidebar, .account-content {
+        width: 100% !important;
         box-sizing: border-box !important;
     }
 }
