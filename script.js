@@ -1,7 +1,3 @@
-// ==========================================
-// KITSUNETECH MASTER SCRIPT
-// ==========================================
-
 window.addEventListener('DOMContentLoaded', () => {
     
     // 1. SAKURA PETAL EFFECT
@@ -41,7 +37,6 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 4. ADD TO CART EVENT LISTENERS
     document.querySelectorAll('.btn-add').forEach(button => {
         if(button.hasAttribute('data-cart-active')) return;
         button.setAttribute('data-cart-active', 'true');
@@ -55,7 +50,6 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 5. INITIALIZE WISHLIST BUTTONS (Product Pages)
     document.querySelectorAll('.product-card').forEach(card => {
         let heartBtn = card.querySelector('.btn-wishlist-toggle');
         if (!heartBtn) {
@@ -93,7 +87,6 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 6. RENDER WISHLIST ITEMS (Wishlist Page)
     const wishlistGrid = document.getElementById('dynamic-wishlist-grid');
     const countSpan = document.getElementById('wishlist-count');
     
@@ -122,13 +115,35 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Initialize UI on load
     updateCartUI();
 });
 
-// ==========================================
-// GLOBAL FUNCTIONS
-// ==========================================
+    const gpuDropdown = document.getElementById('gpu-dropdown');
+    if (gpuDropdown) {
+        const selectedDiv = gpuDropdown.querySelector('.dropdown-selected');
+        const dropdownList = gpuDropdown.querySelector('.dropdown-list');
+        const items = gpuDropdown.querySelectorAll('.dropdown-item');
+
+        selectedDiv.addEventListener('click', (e) => {
+            dropdownList.classList.toggle('show');
+            e.stopPropagation(); 
+        });
+
+        items.forEach(item => {
+            item.addEventListener('click', () => {
+                selectedDiv.textContent = item.textContent;
+
+                gpuDropdown.setAttribute('data-value', item.getAttribute('data-value'));
+                gpuDropdown.setAttribute('data-size', item.getAttribute('data-size'));
+
+                dropdownList.classList.remove('show');
+            });
+        });
+
+        document.addEventListener('click', () => {
+            dropdownList.classList.remove('show');
+        });
+    }
 
 window.toggleSearch = function() {
     const input = document.getElementById('search-bar');
@@ -181,7 +196,6 @@ window.sortProducts = function() {
     cards.forEach(card => grid.appendChild(card));
 }
 
-// --- CART LOGIC ---
 window.addToCart = function(name, price, img) {
     let cart = JSON.parse(localStorage.getItem('kitsune_cart')) || [];
     let existingItem = cart.find(item => item.name === name);
@@ -255,7 +269,6 @@ window.changeCartQty = function(index, amount) {
     updateCartUI();
 }
 
-// --- WISHLIST FUNCTION ---
 window.removeFromWishlistPage = function(index) {
     let wishlist = JSON.parse(localStorage.getItem('kitsune_wishlist')) || [];
     wishlist.splice(index, 1); 
@@ -263,7 +276,6 @@ window.removeFromWishlistPage = function(index) {
     location.reload(); 
 }
 
-// --- COMPATIBILITY CHECKER (For GPU Page) ---
 window.checkCompatibility = function() {
     const cpuBrand = document.getElementById('cpu-brand')?.value;
     const moboSelect = document.getElementById('motherboard');
