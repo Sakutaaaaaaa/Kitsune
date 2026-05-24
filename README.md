@@ -28,9 +28,9 @@ Site Structure
 - `catalog.html` – Product Catalog
 - `amd.html` – AMD Products Catalog
 - `nvidia.html` – NVIDIA Products Catalog
-- `kitsune-fox-series.html` – Fox Series Builds
-- `sakura-series.html` – Sakura Series Builds
-- `kawaii-neko-series.html` – Kawaii Neko Series Builds
+- `kitsune-fox-series.html` – Fox Series Catalog
+- `sakura-series.html` – Sakura Series Catalog
+- `kawaii-neko-series.html` – Kawaii Neko Series Catalog
 - `compatibility.html` – Compatibility Checker
 - `about-us.html` – Company Profile
 - `contact-support.html` – Contact Support and FAQ
